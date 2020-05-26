@@ -2,6 +2,6 @@ kafka:
   boot:
     server: localhost:9092
   topic:
-    name: myTopic-kafkasender
+    name: ulyTopic-kafkasender-job
 server:
   port: 8081 

@@ -2,9 +2,9 @@ kafka:
   boot:
     server: localhost:9092
   topic:
-    name: myTopic-kafkasender
+    name: ulyTopic-kafkasender-job
   consumer:
     group:
-      id: myTopic-group-id
+      id: uly-group-id
 server:
   port: 8082

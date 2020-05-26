@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.model.Student;
+import com.springboot.model.Job;
 import com.springboot.service.KafkaSender;
 
 @RestController
@@ -19,8 +19,8 @@ public class KafkaProducerController {
 	private KafkaSender sender;
 	
 	@PostMapping
-	public ResponseEntity<String> sendData(@RequestBody Student student){
-		sender.sendData(student);
+	public ResponseEntity<String> sendData(@RequestBody Job job){
+		sender.sendData(job);
 		return new ResponseEntity<>("Data sent to Kafka", HttpStatus.OK);
 	}
 }
