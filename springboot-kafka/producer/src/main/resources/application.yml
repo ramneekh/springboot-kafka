@@ -1,0 +1,7 @@
+kafka:
+  boot:
+    server: localhost:9092
+  topic:
+    name: ulyTopic-kafkasender-job
+server:
+  port: 9000

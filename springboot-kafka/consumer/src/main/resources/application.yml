@@ -1,0 +1,10 @@
+kafka:
+  boot:
+    server: localhost:9092
+  topic:
+    name: ulyTopic-kafkasender-job
+  consumer:
+    group:
+      id: uly-group-id
+server:
+  port: 9002
