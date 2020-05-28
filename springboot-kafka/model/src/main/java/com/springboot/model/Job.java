@@ -1,7 +1,14 @@
 package com.springboot.model;
 
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+@lombok.Getter
 public class Job implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,36 +17,20 @@ public class Job implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Address address;
+	private int firstNumber;
+	private int secondNumber;
+	//private int sum;
+	@JsonIgnore
+	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-	public String getJobId() {
-		return jobId;
+	@JsonAnyGetter
+	public Map<String, Object> getAdditionalProperties() {
+		return this.additionalProperties;
 	}
 
-	public void setJobId(String studentId) {
-		this.jobId = studentId;
+	@JsonAnySetter
+	public void setAdditionalProperty(String name, Object value) {
+		this.additionalProperties.put(name, value);
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 }

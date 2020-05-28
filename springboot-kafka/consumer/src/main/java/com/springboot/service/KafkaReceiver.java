@@ -8,6 +8,7 @@ import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Service;
 
 import com.springboot.model.Job;
@@ -16,6 +17,24 @@ import com.springboot.model.Job;
 public class KafkaReceiver {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(KafkaReceiver.class);
+
+	@KafkaListener(id = "fooGroup", topics = "${kafka.topic.name}")
+	@SendTo
+	public Job listen(Job in) {
+		LOGGER.info("Received: " + in.getJobId());
+		int sum = in.getFirstNumber() + in.getSecondNumber();
+		in.setAdditionalProperty("sum", sum);
+		if (in.getFirstName().startsWith("foo")) {
+			throw new RuntimeException("failed");
+		}
+		return in;
+	}
+
+	@KafkaListener(id = "dltGroup", topics = "${kafka.topic.name}.DLT")
+	public void dltListen(Job in) {
+		LOGGER.info("Received from DLT: " + in.getJobId());
+	}
+
 
 /*	@KafkaListener(topics = "${kafka.topic.name}", groupId = "${kafka.consumer.group.id}")
 	public void recieveData(@Payload Job job,
@@ -40,18 +59,6 @@ public class KafkaReceiver {
 		LOGGER.info("Data:{} replayed on partition:{}",job.getJobId(),partition);
 	}
 */
-	@KafkaListener(id = "fooGroup", topics = "${kafka.topic.name}")
-	public void listen(Job in) {
-		LOGGER.info("Received: " + in.getJobId());
-		if (in.getFirstName().startsWith("foo")) {
-			throw new RuntimeException("failed");
-		}
-	}
-
-	@KafkaListener(id = "dltGroup", topics = "${kafka.topic.name}.DLT")
-	public void dltListen(Job in) {
-		LOGGER.info("Received from DLT: " + in.getJobId());
-	}
 
 
 

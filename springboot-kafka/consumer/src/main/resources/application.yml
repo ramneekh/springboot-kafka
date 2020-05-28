@@ -3,6 +3,7 @@ kafka:
     server: localhost:9092
   topic:
     name: ulyTopic-kafkasender-job
+    requestreply-topic: requestreply-topic
   consumer:
     group:
       id: uly-group-id

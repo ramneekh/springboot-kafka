@@ -3,5 +3,10 @@ kafka:
     server: localhost:9092
   topic:
     name: ulyTopic-kafkasender-job
+    requestreply-topic: requestreply-topic
+  consumer:
+    group:
+      id: uly-reply-group-id
+
 server:
   port: 9000

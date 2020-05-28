@@ -1,5 +1,6 @@
 package com.springboot.ctrl;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +13,23 @@ import com.springboot.model.Job;
 import com.springboot.service.KafkaSender;
 
 @RestController
-@RequestMapping("/kafkaProducer")
 public class KafkaProducerController {
 
 	@Autowired
 	private KafkaSender sender;
-	
+
 	@PostMapping
-	public ResponseEntity<String> sendData(@RequestBody Job job){
+	@RequestMapping("/kafkaProducer")
+	public ResponseEntity<String> sendRequest(@RequestBody Job job){
 		sender.sendData(job);
 		return new ResponseEntity<>("Data sent to Kafka", HttpStatus.OK);
+	}
+
+	@SneakyThrows
+	@PostMapping
+	@RequestMapping("/kafkaProducerReply")
+	public Job sendRequestReply(@RequestBody Job job){
+		return sender.sendRequstReplyMessage(job);
+		//return new ResponseEntity<>("Data sent to Kafka", HttpStatus.OK);
 	}
 }
