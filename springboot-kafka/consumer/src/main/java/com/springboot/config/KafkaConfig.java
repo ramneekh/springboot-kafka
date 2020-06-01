@@ -41,16 +41,20 @@ public class KafkaConfig {
 		return new KafkaTemplate<>(producerFactory());
 	}
 
-
+/*
 	@Bean
 	public ReplyingKafkaTemplate<String, Job, Job> replyKafkaTemplate(ProducerFactory<String, Job> pf, KafkaMessageListenerContainer<String, Job> container){
 		return new ReplyingKafkaTemplate<>(pf, container);
 	}
+*/
+/*
+
 	@Bean
 	public KafkaMessageListenerContainer<String, Job> replyContainer(ConsumerFactory<String, Job> cf) {
 		ContainerProperties containerProperties = new ContainerProperties(requestReplyTopic);
 		return new KafkaMessageListenerContainer<>(cf, containerProperties);
 	}
+*/
 
 
 	@Bean
@@ -77,8 +81,8 @@ public class KafkaConfig {
 	public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Job>> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, Job> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
-		factory.setReplyTemplate(kafkaTemplate());
-		factory.setErrorHandler(new SeekToCurrentErrorHandler(
+		factory.setReplyTemplate(kafkaTemplate());  //required to reply
+		factory.setErrorHandler(new SeekToCurrentErrorHandler(    //required to send messages to dead letter queue
 				new DeadLetterPublishingRecoverer(kafkaTemplate()), new FixedBackOff(2000,2)));
 
 		return factory;

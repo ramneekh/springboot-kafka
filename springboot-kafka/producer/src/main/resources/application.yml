@@ -10,3 +10,6 @@ kafka:
 
 server:
   port: 9000
+#logging:
+#  level:
+#    org.springframework.kafka: DEBUG

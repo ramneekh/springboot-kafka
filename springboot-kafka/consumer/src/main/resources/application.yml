@@ -9,3 +9,6 @@ kafka:
       id: uly-group-id
 server:
   port: 9002
+#logging:
+#  level:
+#    org.springframework.kafka: DEBUG

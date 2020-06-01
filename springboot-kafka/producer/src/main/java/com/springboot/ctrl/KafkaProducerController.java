@@ -29,7 +29,7 @@ public class KafkaProducerController {
 	@PostMapping
 	@RequestMapping("/kafkaProducerReply")
 	public Job sendRequestReply(@RequestBody Job job){
-		return sender.sendRequstReplyMessage(job);
+		return sender.sendRequestReplyMessage(job);
 		//return new ResponseEntity<>("Data sent to Kafka", HttpStatus.OK);
 	}
 }

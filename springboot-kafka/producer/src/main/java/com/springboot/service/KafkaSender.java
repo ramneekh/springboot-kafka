@@ -64,7 +64,7 @@ public class KafkaSender {
 	}
 
 
-	public Job sendRequstReplyMessage(Job job) throws ExecutionException, InterruptedException {
+	public Job sendRequestReplyMessage(Job job) throws ExecutionException, InterruptedException {
 
 		LOGGER.info("Data - " + job.toString() + " sent to Kafka Topic - " + topicName);
 		// create producer record
